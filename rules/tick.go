@@ -2,7 +2,6 @@ package rules
 
 import (
 	"fmt"
-	"math"
 	"math/rand"
 	"time"
 
@@ -33,15 +32,14 @@ func GameTick(game *pb.Game, lastFrame *pb.GameFrame) (*pb.GameFrame, error) {
 	moves := GatherSnakeMoves(duration, game, lastFrame)
 
 	// we have all the snake moves now
-	// 1. update snake coords
+	// 1. snake update
+	//    a - update snake coords
+	//    b - reverse snakes who have moved backward onto their own bodies
+	//    c - remove snake tails
 	updateSnakes(game, nextFrame, moves)
 	// 2. game update
 	//    a - turn incr -- done above when the next tick is created
 	//    b - reduce health points
-	//    c - grow snakes, and update snake health if they ate
-	//    d - shrink snakes that didn't eat
-	//    e - remove eaten food
-	//    f - replace eaten food
 	log.WithFields(log.Fields{
 		"GameID": game.ID,
 		"Turn":   nextFrame.Turn,
@@ -49,18 +47,6 @@ func GameTick(game *pb.Game, lastFrame *pb.GameFrame) (*pb.GameFrame, error) {
 	for _, s := range nextFrame.AliveSnakes() {
 		s.Health = s.Health - 1
 	}
-
-	log.WithFields(log.Fields{
-		"GameID": game.ID,
-		"Turn":   nextFrame.Turn,
-	}).Info("handle food")
-
-	foodToRemove := checkForSnakesEating(nextFrame)
-	nextFood, err := updateFood(game, lastFrame, foodToRemove)
-	if err != nil {
-		return nil, err
-	}
-	nextFrame.Food = nextFood
 
 	// 3. check for death
 	// 	  a - starvation
@@ -77,71 +63,6 @@ func GameTick(game *pb.Game, lastFrame *pb.GameFrame) (*pb.GameFrame, error) {
 		}
 	}
 	return nextFrame, nil
-}
-
-func updateFood(game *pb.Game, gameFrame *pb.GameFrame, foodToRemove []*pb.Point) ([]*pb.Point, error) {
-	var food []*pb.Point
-	// discover what food was not eaten
-	for _, foodPos := range gameFrame.Food {
-		found := false
-		for _, r := range foodToRemove {
-			if foodPos.Equal(r) {
-				found = true
-				break
-			}
-		}
-
-		if !found {
-			food = append(food, foodPos)
-		}
-	}
-
-	foodToAdd := 0
-	if game.MaxTurnsToNextFoodSpawn <= 0 {
-		foodToAdd = len(foodToRemove)
-	} else {
-		if game.TurnsSinceLastFoodSpawn == game.MaxTurnsToNextFoodSpawn {
-			foodToAdd = int(math.Ceil(float64(len(gameFrame.AliveSnakes())) / 2.0))
-		} else {
-			chance := rand.Int31n(1001) // use 101 here so we get 0-100 inclusive
-			calculatedChance := calculateFoodSpawnChance(game)
-			log.WithFields(log.Fields{
-				"GameID":            game.ID,
-				"Food Spawn Chance": chance,
-				"Turns Since Last":  game.TurnsSinceLastFoodSpawn,
-				"Calculate Chance":  calculatedChance,
-			}).Info("food spawn chance")
-			fmt.Println(len(gameFrame.AliveSnakes()))
-			if float64(chance) <= calculatedChance {
-				foodToAdd = int(math.Ceil(float64(len(gameFrame.AliveSnakes())) / 2.0))
-
-			}
-		}
-	}
-
-	if foodToAdd > 0 {
-		game.TurnsSinceLastFoodSpawn = 0
-		for i := 0; i < foodToAdd; i++ {
-			p := getUnoccupiedPoint(game.Width, game.Height, gameFrame.Food, gameFrame.AliveSnakes())
-			if p != nil {
-				food = append(food, p)
-			}
-		}
-	} else {
-		game.TurnsSinceLastFoodSpawn++
-	}
-
-	return food, nil
-}
-
-func calculateFoodSpawnChance(game *pb.Game) float64 {
-	minSpawnChance := float64(0.5)
-
-	ratio := math.Pow(1000/minSpawnChance, 1.0/float64(game.MaxTurnsToNextFoodSpawn-1))
-	seqNum := float64(game.TurnsSinceLastFoodSpawn)
-
-	spawnChance := minSpawnChance * ((1 - math.Pow(ratio, seqNum)) / (1 - ratio))
-	return spawnChance
 }
 
 func getUnoccupiedPoint(width, height int32, food []*pb.Point, snakes []*pb.Snake) *pb.Point {
@@ -271,37 +192,18 @@ func updateSnakes(game *pb.Game, frame *pb.GameFrame, moves []*SnakeUpdate) {
 			}).Info("Move")
 			update.Snake.Move(update.Move)
 		}
+		if checkForBackflip(update.Snake) {
+			update.Snake.Flip()
+		}
+		if len(update.Snake.Body) != 0 {
+			update.Snake.Body = update.Snake.Body[:len(update.Snake.Body)-1]
+		}
 	}
 }
 
-func checkForSnakesEating(frame *pb.GameFrame) []*pb.Point {
-	foodToRemove := []*pb.Point{}
-	for _, snake := range frame.AliveSnakes() {
-		ate := false
-		for _, foodPos := range frame.Food {
-			if snake.Head().Equal(foodPos) {
-				snake.Health = 100
-				ate = true
-				foodToRemove = append(foodToRemove, foodPos)
-				log.WithFields(log.Fields{
-					"SnakeID": snake.ID,
-					"Name":    snake.Name,
-					"Turn":    frame.Turn,
-					"Food":    foodPos,
-				}).Info("snake ate")
-			}
-		}
-
-		// It's possible here to have 2 points at the tail, and so if we remove the second one, it
-		// looks like the snake hasn't moved.
-		// This shouldn't happen, but just in case
-		if len(snake.Body) != 0 {
-			snake.Body = snake.Body[:len(snake.Body)-1]
-		}
-		if ate {
-			tail := snake.Tail()
-			snake.Body = append(snake.Body, &pb.Point{X: tail.X, Y: tail.Y})
-		}
+func checkForBackflip(s *pb.Snake) bool {
+	if s.Head() == nil || len(s.Body) < 2 {
+		return false
 	}
-	return foodToRemove
+	return s.Head().Equal(s.Body[1])
 }

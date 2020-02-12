@@ -56,6 +56,14 @@ func (s *Snake) DefaultMove() {
 	}
 }
 
+// Flip reverses the Body; if this happens while the head (Body[0]) is on the neck (Body[1]),
+// the new tail (former head) is later deleted and the snake will appear to stay in place
+func (s *Snake) Flip() {
+	for h, t := 0, len(s.Body)-1; h < t; h, t = h+1, t-1 {
+		s.Body[h], s.Body[t] = s.Body[t], s.Body[h]
+	}
+}
+
 // Head returns the first point in the body
 func (s *Snake) Head() *Point {
 	if len(s.Body) == 0 {

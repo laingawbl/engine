@@ -9,55 +9,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestUpdateFood(t *testing.T) {
-	updated, err := updateFood(&pb.Game{Width: 20, Height: 20}, &pb.GameFrame{
-		Food: []*pb.Point{
-			{X: 1, Y: 1},
-			{X: 1, Y: 2},
-		},
-		Snakes: []*pb.Snake{
-			{
-				Body: []*pb.Point{
-					{X: 1, Y: 2},
-					{X: 2, Y: 2},
-					{X: 3, Y: 2},
-				},
-			},
-		},
-	}, []*pb.Point{
-		{X: 1, Y: 2},
-	})
-	require.NoError(t, err)
-	require.Len(t, updated, 2)
-	require.True(t, updated[0].Equal(&pb.Point{X: 1, Y: 1}))
-	require.False(t, updated[1].Equal(&pb.Point{X: 1, Y: 2}))
-	require.False(t, updated[1].Equal(&pb.Point{X: 2, Y: 2}))
-	require.False(t, updated[1].Equal(&pb.Point{X: 3, Y: 2}))
-	require.False(t, updated[1].Equal(&pb.Point{X: 1, Y: 1}))
-}
-
-func TestUpdateFoodWithFullBoard(t *testing.T) {
-	updated, err := updateFood(&pb.Game{Width: 2, Height: 2}, &pb.GameFrame{
-		Food: []*pb.Point{
-			{X: 0, Y: 0},
-		},
-		Snakes: []*pb.Snake{
-			{
-				Body: []*pb.Point{
-					{X: 0, Y: 0},
-					{X: 0, Y: 1},
-					{X: 1, Y: 1},
-					{X: 1, Y: 0},
-				},
-			},
-		},
-	}, []*pb.Point{
-		{X: 0, Y: 0},
-	})
-	require.NoError(t, err)
-	require.Len(t, updated, 0)
-}
-
 func TestGetUnoccupiedPointEven(t *testing.T) {
 
 	unoccupiedPoint := getUnoccupiedPointEven(2, 2,
@@ -186,8 +137,8 @@ func TestGameFrameSnakeEats(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, gt.Snakes, 1)
 	snake = gt.Snakes[0]
-	require.Equal(t, int32(100), snake.Health)
-	require.Len(t, snake.Body, 4)
+	require.Equal(t, int32(66), snake.Health)
+	require.Len(t, snake.Body, 3)
 }
 
 func TestGameTickDeadSnakeDoNotUpdate(t *testing.T) {
@@ -305,41 +256,5 @@ func TestNextFoodSpawn(t *testing.T) {
 		Snakes: snakes,
 	})
 	require.NoError(t, err)
-	require.Len(t, next.Food, 2)
-}
-
-func TestCheckForSnakesEating(t *testing.T) {
-	snake := &pb.Snake{
-		Body: []*pb.Point{
-			{X: 2, Y: 1},
-			{X: 1, Y: 1},
-			{X: 1, Y: 2},
-			{X: 2, Y: 2},
-		},
-	}
-	checkForSnakesEating(&pb.GameFrame{
-		Food: []*pb.Point{
-			{X: 2, Y: 1},
-		},
-		Snakes: []*pb.Snake{snake},
-	})
-	require.Len(t, snake.Body, 4)
-	require.Equal(t, snake.Body[2], snake.Body[3])
-}
-
-func TestCheckForSnakesNotEating(t *testing.T) {
-	snake := &pb.Snake{
-		Body: []*pb.Point{
-			{X: 2, Y: 1},
-			{X: 1, Y: 1},
-			{X: 1, Y: 2},
-			{X: 2, Y: 2},
-		},
-	}
-	checkForSnakesEating(&pb.GameFrame{
-		Food:   []*pb.Point{},
-		Snakes: []*pb.Snake{snake},
-	})
-	require.Len(t, snake.Body, 3)
-	require.NotEqual(t, snake.Body[2], snake.Body[1])
+	require.Len(t, next.Food, 0)
 }

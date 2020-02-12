@@ -39,29 +39,18 @@ func checkForDeath(width, height int32, frame *pb.GameFrame) []deathUpdate {
 		}
 
 		for _, other := range frame.AliveSnakes() {
-			if deathByHeadCollision(s, other) {
-				updates = append(updates, deathUpdate{
-					Snake: s,
-					Death: &pb.Death{
-						Turn:  frame.Turn,
-						Cause: DeathCauseHeadToHeadCollision,
-					},
-				})
-			}
-
-			for i, b := range other.Body {
+			for i, b := range s.Body {
 				if i == 0 {
 					continue
 				}
-
-				if deathByBodyCollision(s.Head(), b) {
+				// check if other snake's head intersects this snake's body
+				if deathByBodyCollision(other.Head(), b) {
 					var cause string
 					if s.ID == other.ID {
 						cause = DeathCauseSnakeSelfCollision
 					} else {
 						cause = DeathCauseSnakeCollision
 					}
-
 					updates = append(updates, deathUpdate{
 						Snake: s,
 						Death: &pb.Death{

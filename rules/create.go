@@ -34,10 +34,7 @@ func CreateInitialGame(req *pb.CreateRequest) (*pb.Game, []*pb.GameFrame, error)
 	if err != nil {
 		return nil, nil, err
 	}
-	food, err := generateFood(req, snakes)
-	if err != nil {
-		return nil, nil, err
-	}
+	food := []*pb.Point{}
 	snakeTimeout := getSnakeTimeout(req)
 
 	id := uuid.NewV4().String()
@@ -48,7 +45,7 @@ func CreateInitialGame(req *pb.CreateRequest) (*pb.Game, []*pb.GameFrame, error)
 		Status:                  string(GameStatusStopped),
 		SnakeTimeout:            snakeTimeout,
 		Mode:                    string(GameModeMultiPlayer),
-		MaxTurnsToNextFoodSpawn: req.MaxTurnsToNextFoodSpawn,
+		MaxTurnsToNextFoodSpawn: -1,
 	}
 
 	if len(snakes) == 1 {
@@ -124,6 +121,7 @@ func getSnakes(req *pb.CreateRequest) ([]*pb.Snake, error) {
 				startPoint,
 				startPoint.Clone(),
 				startPoint.Clone(),
+				startPoint.Clone(),
 			},
 		}
 		if len(snake.ID) == 0 {
@@ -140,17 +138,4 @@ func getSnakes(req *pb.CreateRequest) ([]*pb.Snake, error) {
 	}
 
 	return snakes, nil
-}
-
-func generateFood(req *pb.CreateRequest, snakes []*pb.Snake) ([]*pb.Point, error) {
-	food := []*pb.Point{}
-
-	for i := int32(0); i < req.Food; i++ {
-		p := getUnoccupiedPoint(req.Width, req.Height, food, snakes)
-		if p != nil {
-			food = append(food, p)
-		}
-	}
-
-	return food, nil
 }

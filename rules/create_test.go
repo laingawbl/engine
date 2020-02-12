@@ -98,7 +98,7 @@ func TestTournamentCreateGame(t *testing.T) {
 	require.NoError(t, err)
 	require.Len(t, frame, 1)
 	require.Len(t, frame[0].Snakes, 2)
-	require.Len(t, frame[0].Snakes[0].Body, 3)
+	require.Len(t, frame[0].Snakes[0].Body, 4)
 	require.Equal(t, int32(1), frame[0].Snakes[0].Body[0].X)
 	require.Equal(t, int32(1), frame[0].Snakes[0].Body[0].Y)
 	require.Equal(t, int32(5), frame[0].Snakes[1].Body[0].X)
