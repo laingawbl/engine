@@ -189,10 +189,16 @@ func updateSnakes(game *pb.Game, frame *pb.GameFrame, moves []*SnakeUpdate) {
 				"Name":    update.Snake.Name,
 				"Turn":    frame.Turn,
 				"Move":    update.Move,
-			}).Info("Move")
+			}).Info("Non-flip move")
 			update.Snake.Move(update.Move)
 		}
 		if checkForBackflip(update.Snake) {
+			log.WithFields(log.Fields{
+				"GameID":  game.ID,
+				"SnakeID": update.Snake.ID,
+				"Name":    update.Snake.Name,
+				"Turn":    frame.Turn,
+			}).Info("Has flipped")
 			update.Snake.Flip()
 		}
 		if len(update.Snake.Body) != 0 {
