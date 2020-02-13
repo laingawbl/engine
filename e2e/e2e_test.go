@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/laingawbl/engine/controller/pb"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/assert"
 )

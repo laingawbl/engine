@@ -10,8 +10,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/battlesnakeio/engine/controller/pb"
-	"github.com/battlesnakeio/engine/rules"
+	"github.com/laingawbl/engine/controller/pb"
+	"github.com/laingawbl/engine/rules"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
 )

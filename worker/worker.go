@@ -7,7 +7,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/laingawbl/engine/controller/pb"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

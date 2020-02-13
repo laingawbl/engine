@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/laingawbl/engine/controller/pb"
 )
 
 // SnakeUpdate bundles together a snake with a move for processing

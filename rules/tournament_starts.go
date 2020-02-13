@@ -1,6 +1,6 @@
 package rules
 
-import "github.com/battlesnakeio/engine/controller/pb"
+import "github.com/laingawbl/engine/controller/pb"
 
 var (
 	// 7x7 board

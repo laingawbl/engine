@@ -1,44 +1,48 @@
 env:
   global:
-  - CC_TEST_REPORTER_ID=7270ff0025c47f5c76e29b2e422f2c99615339a5abcfe0d31074b7818edf4054
+    - CC_TEST_REPORTER_ID=7270ff0025c47f5c76e29b2e422f2c99615339a5abcfe0d31074b7818edf4054
 language: go
 go:
-- 1.13.x
-go_import_path: github.com/battlesnakeio/engine
+  - 1.13.x
+go_import_path: github.com/laingawbl/engine
 services:
-- docker
+  - docker
 before_install:
-- nvm install 9
+  - nvm install 9
 stages:
-- lint
-- test
-- name: deploy
-  if: tag IS present
+  - lint
+  - test
+  - name: deploy
+    if: tag IS present
 jobs:
   include:
-  - stage: lint
-    script:
-    - curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b $GOPATH/bin v1.20.1
-    - make lint
-  - stage: test
-    script:
-    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-    - chmod +x ./cc-test-reporter
-    - "./cc-test-reporter before-build"
-    - docker run -d -p 5433:5432 --rm -e POSTGRES_PASSWORD= postgres
-    - docker run -d --name=battlesnake-redis --rm -t -p 6379:6379 redis
-    - REDIS_URL=redis://127.0.0.1:6379 make test
-    - cp coverage.txt c.out
-    - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
-    - bash <(curl -s https://codecov.io/bash)
-    - docker rm -f battlesnake-redis
-    - rm ./cc-test-reporter
-  - script: make test-e2e
-  - stage: deploy
-    script: skip
-    deploy:
-    - provider: script
-      skip_cleanup: true
-      script: curl -sL https://git.io/goreleaser | bash
-      on:
-        tags: true
+    - stage: lint
+      script:
+        - curl -sfL
+          https://install.goreleaser.com/github.com/golangci/golangci-lint.sh |
+          bash -s -- -b $GOPATH/bin v1.20.1
+        - make lint
+    - stage: test
+      script:
+        - curl -L
+          https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+          > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - "./cc-test-reporter before-build"
+        - docker run -d -p 5433:5432 --rm -e POSTGRES_PASSWORD= postgres
+        - docker run -d --name=battlesnake-redis --rm -t -p 6379:6379 redis
+        - REDIS_URL=redis://127.0.0.1:6379 make test
+        - cp coverage.txt c.out
+        - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+        - bash <(curl -s https://codecov.io/bash)
+        - docker rm -f battlesnake-redis
+        - rm ./cc-test-reporter
+    - script: make test-e2e
+    - stage: deploy
+      script: skip
+      deploy:
+        - provider: script
+          skip_cleanup: true
+          script: curl -sL https://git.io/goreleaser | bash
+          on:
+            tags: true

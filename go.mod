@@ -1,4 +1,4 @@
-module github.com/battlesnakeio/engine
+module github.com/laingawbl/engine
 
 go 1.13
 

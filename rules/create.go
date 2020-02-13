@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math/rand"
 
-	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/laingawbl/engine/controller/pb"
 	uuid "github.com/satori/go.uuid"
 )
 

@@ -1,7 +1,7 @@
 package rules
 
 import (
-	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/laingawbl/engine/controller/pb"
 )
 
 // MoveResponse the message format of the move response from a Snake API call

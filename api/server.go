@@ -12,8 +12,8 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/battlesnakeio/engine/controller/pb"
-	"github.com/battlesnakeio/engine/rules"
+	"github.com/laingawbl/engine/controller/pb"
+	"github.com/laingawbl/engine/rules"
 	"github.com/golang/protobuf/jsonpb"
 	"github.com/gorilla/websocket"
 	"github.com/julienschmidt/httprouter"

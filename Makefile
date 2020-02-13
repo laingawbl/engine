@@ -1,5 +1,5 @@
 install:
-	go install github.com/battlesnakeio/engine/cmd/engine
+	go install github.com/laingawbl/engine/cmd/engine
 .PHONY: install
 
 run: install
@@ -29,7 +29,7 @@ proto:
 .PHONY: proto
 
 build-docker:
-	docker build -t battlesnakeio/engine .
+	docker build -t laingawbl/engine .
 .PHONY: build-docker
 
 start-pg:

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/battlesnakeio/engine/cmd/engine/commands/server"
-	"github.com/battlesnakeio/engine/version"
+	"github.com/laingawbl/engine/cmd/engine/commands/server"
+	"github.com/laingawbl/engine/version"
 	"github.com/spf13/cobra"
 )
 

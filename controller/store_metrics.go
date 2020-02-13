@@ -3,8 +3,8 @@ package controller
 import (
 	"context"
 
-	"github.com/battlesnakeio/engine/controller/pb"
-	"github.com/battlesnakeio/engine/rules"
+	"github.com/laingawbl/engine/controller/pb"
+	"github.com/laingawbl/engine/rules"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

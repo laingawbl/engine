@@ -7,9 +7,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/battlesnakeio/engine/controller"
-	"github.com/battlesnakeio/engine/controller/pb"
-	"github.com/battlesnakeio/engine/rules"
+	"github.com/laingawbl/engine/controller"
+	"github.com/laingawbl/engine/controller/pb"
+	"github.com/laingawbl/engine/rules"
 	"github.com/gogo/protobuf/proto"
 	uuid "github.com/satori/go.uuid"
 	log "github.com/sirupsen/logrus"

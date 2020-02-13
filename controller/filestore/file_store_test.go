@@ -6,9 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/battlesnakeio/engine/controller"
-	"github.com/battlesnakeio/engine/controller/pb"
-	"github.com/battlesnakeio/engine/rules"
+	"github.com/laingawbl/engine/controller"
+	"github.com/laingawbl/engine/controller/pb"
+	"github.com/laingawbl/engine/rules"
 	"github.com/stretchr/testify/require"
 )
 

@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/laingawbl/engine/controller/pb"
 	log "github.com/sirupsen/logrus"
 )
 

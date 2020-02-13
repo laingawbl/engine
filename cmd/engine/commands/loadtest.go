@@ -5,7 +5,7 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/battlesnakeio/engine/rules"
+	"github.com/laingawbl/engine/rules"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
