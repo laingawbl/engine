@@ -114,7 +114,7 @@ func getSnakes(req *pb.CreateRequest) ([]*pb.Snake, error) {
 			ID:       opts.ID,
 			Name:     opts.Name,
 			URL:      opts.URL,
-			Health:   100,
+			Health:   1000,
 			HeadType: opts.HeadType,
 			TailType: opts.TailType,
 			Body: []*pb.Point{
