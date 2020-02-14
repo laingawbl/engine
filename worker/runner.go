@@ -3,8 +3,8 @@ package worker
 import (
 	"context"
 
-	"github.com/laingawbl/engine/controller/pb"
-	"github.com/laingawbl/engine/rules"
+	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/battlesnakeio/engine/rules"
 	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 )

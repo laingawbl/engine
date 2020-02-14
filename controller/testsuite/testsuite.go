@@ -8,9 +8,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/laingawbl/engine/controller"
-	"github.com/laingawbl/engine/controller/pb"
-	"github.com/laingawbl/engine/rules"
+	"github.com/battlesnakeio/engine/controller"
+	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/battlesnakeio/engine/rules"
 	uuid "github.com/satori/go.uuid"
 	"github.com/stretchr/testify/require"
 )

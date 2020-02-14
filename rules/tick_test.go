@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/stretchr/testify/require"
 )
 

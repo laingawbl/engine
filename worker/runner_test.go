@@ -10,8 +10,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/laingawbl/engine/controller/pb"
-	"github.com/laingawbl/engine/rules"
+	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/battlesnakeio/engine/rules"
 	"github.com/davecgh/go-spew/spew"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/metadata"

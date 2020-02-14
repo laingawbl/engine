@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
-	"github.com/laingawbl/engine/rules"
+	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/battlesnakeio/engine/rules"
 	"github.com/gogo/protobuf/proto"
 	uuid "github.com/satori/go.uuid"
 	"google.golang.org/grpc/codes"

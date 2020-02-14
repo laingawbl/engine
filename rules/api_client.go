@@ -11,7 +11,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/prometheus/client_golang/prometheus"
 	log "github.com/sirupsen/logrus"
 )

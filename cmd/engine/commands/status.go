@@ -10,7 +10,7 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

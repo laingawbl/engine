@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/laingawbl/engine/controller/testsuite"
+	"github.com/battlesnakeio/engine/controller/testsuite"
 	"github.com/stretchr/testify/require"
 )
 

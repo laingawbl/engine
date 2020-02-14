@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 )
 
 type client struct {
@@ -31,6 +31,9 @@ func (c *client) beginGame(cr *pb.CreateRequest) (string, error) {
 		err = json.NewDecoder(resp.Body).Decode(res)
 		if cErr := resp.Body.Close(); err != nil {
 			return "", cErr
+		}
+		if err != nil {
+			return "", err
 		}
 		gameID = res.ID
 	}

@@ -1,5 +1,5 @@
 FROM golang:1.13-alpine as builder
-WORKDIR /go/src/github.com/laingawbl/engine/
+WORKDIR /go/src/github.com/battlesnakeio/engine/
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go install -installsuffix cgo ./cmd/...
 

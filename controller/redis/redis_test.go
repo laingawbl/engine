@@ -7,9 +7,9 @@ import (
 	"os"
 	"testing"
 
-	"github.com/laingawbl/engine/controller"
-	"github.com/laingawbl/engine/controller/pb"
-	"github.com/laingawbl/engine/rules"
+	"github.com/battlesnakeio/engine/controller"
+	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/battlesnakeio/engine/rules"
 	"github.com/dlsteuer/miniredis"
 	"github.com/go-redis/redis"
 	"github.com/satori/go.uuid"

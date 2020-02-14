@@ -6,8 +6,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
-	"github.com/laingawbl/engine/worker"
+	"github.com/battlesnakeio/engine/controller/pb"
+	"github.com/battlesnakeio/engine/worker"
 	grpcmiddleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	promgrpc "github.com/grpc-ecosystem/go-grpc-prometheus"
 	log "github.com/sirupsen/logrus"

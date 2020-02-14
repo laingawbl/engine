@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/mattn/go-runewidth"
 	termbox "github.com/nsf/termbox-go"
 )

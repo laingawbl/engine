@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 )
 
 // SnakeMetadata contains a snake and the metadata sent in the start response

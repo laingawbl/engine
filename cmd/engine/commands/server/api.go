@@ -3,8 +3,8 @@ package server
 import (
 	log "github.com/sirupsen/logrus"
 
-	"github.com/laingawbl/engine/api"
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/api"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/spf13/cobra"
 )
 

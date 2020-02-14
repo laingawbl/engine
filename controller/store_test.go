@@ -3,8 +3,8 @@ package controller_test
 import (
 	"testing"
 
-	"github.com/laingawbl/engine/controller"
-	"github.com/laingawbl/engine/controller/testsuite"
+	"github.com/battlesnakeio/engine/controller"
+	"github.com/battlesnakeio/engine/controller/testsuite"
 )
 
 func TestInMemSuite(t *testing.T) {

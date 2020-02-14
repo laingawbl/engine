@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/laingawbl/engine/controller"
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/metadata"
 )

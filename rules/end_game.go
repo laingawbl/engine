@@ -1,6 +1,6 @@
 package rules
 
-import "github.com/laingawbl/engine/controller/pb"
+import "github.com/battlesnakeio/engine/controller/pb"
 
 // CheckForGameOver checks if the game has ended. End condition is dependent on game mode.
 func CheckForGameOver(mode GameMode, gt *pb.GameFrame) bool {

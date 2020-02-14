@@ -8,7 +8,7 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 
-	"github.com/laingawbl/engine/cmd/engine/commands"
+	"github.com/battlesnakeio/engine/cmd/engine/commands"
 )
 
 func main() {

@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/gorilla/websocket"
 	termbox "github.com/nsf/termbox-go"
 	"github.com/spf13/cobra"

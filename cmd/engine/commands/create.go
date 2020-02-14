@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	"github.com/spf13/cobra"
 )
 

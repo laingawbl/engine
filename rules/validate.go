@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 	log "github.com/sirupsen/logrus"
 )
 

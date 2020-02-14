@@ -3,7 +3,7 @@ package commands
 import (
 	"sync"
 
-	"github.com/laingawbl/engine/controller/pb"
+	"github.com/battlesnakeio/engine/controller/pb"
 )
 
 type frameHolder struct {
