@@ -189,17 +189,17 @@ func updateSnakes(game *pb.Game, frame *pb.GameFrame, moves []*SnakeUpdate) {
 				"Name":    update.Snake.Name,
 				"Turn":    frame.Turn,
 				"Move":    update.Move,
-			}).Info("Non-flip move")
+			}).Info("Move")
 			update.Snake.Move(update.Move)
 		}
-		if checkForBackflip(update.Snake) {
-			log.WithFields(log.Fields{
-				"GameID":  game.ID,
-				"SnakeID": update.Snake.ID,
-				"Name":    update.Snake.Name,
-				"Turn":    frame.Turn,
-			}).Info("Has flipped")
+
+		if flipBySelfCollision(update.Snake) {
 			update.Snake.Flip()
+		}
+		for _, other := range frame.AliveSnakes() {
+			if flipByHeadCollision(update.Snake, other) {
+				update.Snake.Flip()
+			}
 		}
 		if len(update.Snake.Body) != 0 {
 			update.Snake.Body = update.Snake.Body[:len(update.Snake.Body)-1]
@@ -207,9 +207,13 @@ func updateSnakes(game *pb.Game, frame *pb.GameFrame, moves []*SnakeUpdate) {
 	}
 }
 
-func checkForBackflip(s *pb.Snake) bool {
-	if s.Head() == nil || len(s.Body) < 2 {
+func flipBySelfCollision(s *pb.Snake) bool {
+	if s.Head() == nil || len(s.Body) < 3 {
 		return false
 	}
-	return s.Head().Equal(s.Body[1])
+	return s.Head().Equal(s.Body[2])
+}
+
+func flipByHeadCollision(snake, other *pb.Snake) bool {
+	return (other.ID != snake.ID) && (snake.Head().Equal(other.Head()))
 }

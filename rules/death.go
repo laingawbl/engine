@@ -77,7 +77,3 @@ func deathByBodyCollision(head, body *pb.Point) bool {
 func deathByOutOfBounds(head *pb.Point, width, height int32) bool {
 	return (head.X < 0) || (head.X >= width) || (head.Y < 0) || (head.Y >= height)
 }
-
-func deathByHeadCollision(snake, other *pb.Snake) bool {
-	return (other.ID != snake.ID) && (snake.Head().Equal(other.Head())) && (len(snake.Body) <= len(other.Body))
-}
